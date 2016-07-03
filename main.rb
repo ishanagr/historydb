@@ -2,8 +2,9 @@ require 'sinatra'
 require 'redis'
 require 'json'
 
-# $redis = Redis.new(:host => "localhost", :port => 6379)
-$redis = Redis.new(:host => "pub-redis-18583.us-east-1-3.4.ec2.garantiadata.com", :port => 18583)
+redisUri = ENV["REDIS_URL"] || 'redis://localhost:6379'
+uri = URI.parse(redisUri)
+$redis = Redis.new(:host => uri.host, :port => uri.port)
 
 get '/object/:key' do
   ts = params['timestamp'] || Time.now.to_i
