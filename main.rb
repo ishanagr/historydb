@@ -2,7 +2,8 @@ require 'sinatra'
 require 'redis'
 require 'json'
 
-$redis = Redis.new(:host => "localhost", :port => 6379)
+# $redis = Redis.new(:host => "localhost", :port => 6379)
+$redis = Redis.new(:host => "pub-redis-18583.us-east-1-3.4.ec2.garantiadata.com", :port => 18583)
 
 get '/object/:key' do
   ts = params['timestamp'] || Time.now.to_i
@@ -16,7 +17,6 @@ end
 post '/object' do
   begin
     payload = JSON.parse(request.body.read)
-    print "payload #{payload}"
     return 603, custom_error("Bad request body") if payload.nil? || payload.empty?
   rescue JSON::ParserError => e
     return 603, custom_error("Bad request body")
