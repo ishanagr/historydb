@@ -4,7 +4,7 @@ require 'json'
 
 redisUri = ENV["REDIS_URL"] || 'redis://localhost:6379'
 uri = URI.parse(redisUri)
-$redis = Redis.new(:host => uri.host, :port => uri.port)
+$redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 
 get '/object/:key' do
   ts = params['timestamp'] || Time.now.to_i
