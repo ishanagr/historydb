@@ -29,7 +29,7 @@ post '/object' do
 end
 
 not_found do
-  'Sorry, this route is not available'
+  {"error" => 'Sorry, this route is not available'}.to_json
 end
 
 def custom_error str
